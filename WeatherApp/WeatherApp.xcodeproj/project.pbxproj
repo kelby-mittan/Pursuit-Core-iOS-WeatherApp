@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		029BCD9823E3994200EF1567 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029BCD9723E3994200EF1567 /* APIKeys.swift */; };
 		548CE052234D33B500B5177D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548CE051234D33B500B5177D /* AppDelegate.swift */; };
 		548CE054234D33B500B5177D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548CE053234D33B500B5177D /* SceneDelegate.swift */; };
 		548CE056234D33B500B5177D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548CE055234D33B500B5177D /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		029BCD9723E3994200EF1567 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		548CE04E234D33B500B5177D /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		548CE051234D33B500B5177D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		548CE053234D33B500B5177D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,9 +41,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		029BCD9623E3991E00EF1567 /* APIKeys */ = {
+			isa = PBXGroup;
+			children = (
+				029BCD9723E3994200EF1567 /* APIKeys.swift */,
+			);
+			path = APIKeys;
+			sourceTree = "<group>";
+		};
 		548CE045234D33B500B5177D = {
 			isa = PBXGroup;
 			children = (
+				029BCD9623E3991E00EF1567 /* APIKeys */,
 				548CE050234D33B500B5177D /* WeatherApp */,
 				548CE04F234D33B500B5177D /* Products */,
 			);
@@ -142,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				548CE066234D33E600B5177D /* ZipCodeHelper.swift in Sources */,
+				029BCD9823E3994200EF1567 /* APIKeys.swift in Sources */,
 				548CE056234D33B500B5177D /* ViewController.swift in Sources */,
 				548CE052234D33B500B5177D /* AppDelegate.swift in Sources */,
 				548CE054234D33B500B5177D /* SceneDelegate.swift in Sources */,

@@ -29,3 +29,15 @@ class ZipCodeHelper {
         }
     }
 }
+
+extension Double {
+    func timeConverter() -> String {
+            let date = Date(timeIntervalSince1970: self)
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeStyle = DateFormatter.Style.medium
+            dateFormatter.dateStyle = DateFormatter.Style.medium
+            dateFormatter.timeZone = .current
+            let localDate = dateFormatter.string(from: date)
+            return localDate
+        }
+}

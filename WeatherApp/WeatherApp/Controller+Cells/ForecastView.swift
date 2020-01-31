@@ -13,6 +13,7 @@ class ForecastView: UIView {
     public var cityLabel: UILabel = {
         let label = UILabel()
         label.text = "City"
+        label.textAlignment = .center
         return label
     }()
     

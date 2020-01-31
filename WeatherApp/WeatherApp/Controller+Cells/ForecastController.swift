@@ -34,14 +34,6 @@ class ForecastController: UIViewController {
         }
     }
     
-    //    var searchQuery = "" {
-    //        didSet {
-    //            DispatchQueue.main.async {
-    ////                self.loadWeather()
-    //            }
-    //        }
-    //    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

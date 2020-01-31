@@ -28,15 +28,21 @@ class ViewController: UIViewController {
         }
     }
     
+    var searchQuery = "" {
+        didSet {
+            DispatchQueue.main.async {
+//                self.loadWeather()
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
         
         getZip(search: "10019")
-        //        print(lat)
-        //        print(long)
-//        print("\(lat.description),\(long.description)")
+        
     }
     
     
@@ -55,6 +61,10 @@ class ViewController: UIViewController {
 //                print("\(self.lat.description),\(self.long.description)")
             }
         }
+    }
+    
+    private func loadWeather() {
+        
     }
     
 }

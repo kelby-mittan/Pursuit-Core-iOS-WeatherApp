@@ -1,15 +1,21 @@
 //
-//  ViewController.swift
+//  ForecastController.swift
 //  WeatherApp
 //
-//  Created by David Rifkin on 10/8/19.
-//  Copyright © 2019 David Rifkin. All rights reserved.
+//  Created by Kelby Mittan on 1/31/20.
+//  Copyright © 2020 David Rifkin. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ForecastController: UIViewController {
+    
+    private let forecastView = ForecastView()
+    
+    override func loadView() {
+        view = forecastView
+    }
+    
     var lat = 0.0 {
         didSet {
             print(lat)
@@ -28,18 +34,18 @@ class ViewController: UIViewController {
         }
     }
     
-//    var searchQuery = "" {
-//        didSet {
-//            DispatchQueue.main.async {
-////                self.loadWeather()
-//            }
-//        }
-//    }
+    //    var searchQuery = "" {
+    //        didSet {
+    //            DispatchQueue.main.async {
+    ////                self.loadWeather()
+    //            }
+    //        }
+    //    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        view.backgroundColor = .systemBackground
         
         getZip(search: "10019")
         
@@ -58,7 +64,7 @@ class ViewController: UIViewController {
                 self.lat = latLong.lat
                 self.long = latLong.long
                 self.zipCodeString = "\(latLong.lat),\(latLong.long)"
-//                print("\(self.lat.description),\(self.long.description)")
+                //                print("\(self.lat.description),\(self.long.description)")
             }
         }
     }

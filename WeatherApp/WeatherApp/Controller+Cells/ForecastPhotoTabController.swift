@@ -10,11 +10,19 @@ import UIKit
 
 class ForecastPhotoTabController: UITabBarController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
+    private lazy var forecastVC: ForecastController = {
+            let viewController = ForecastController()
+            viewController.tabBarItem = UITabBarItem(title: "Forecast", image: UIImage(systemName: "1.circle"), tag: 0)
+            return viewController
+        }()
+        
+        
+        
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            viewControllers = [forecastVC]
+        }
     
 
 

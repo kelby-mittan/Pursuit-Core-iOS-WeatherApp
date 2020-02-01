@@ -24,7 +24,13 @@ class ForecastController: UIViewController {
         }
     }
     
-    var zipCodeString = "" {
+    private var pixCount = Int() {
+        didSet {
+            print(pixCount)
+        }
+    }
+    
+    private var zipCodeString = "" {
         didSet {
             ForecastAPIClient.getForecast(for: zipCodeString) { (result) in
                 switch result {
@@ -37,13 +43,18 @@ class ForecastController: UIViewController {
         }
     }
     
-    var pixPics = [PixImage]() {
-            didSet {
-    //            DispatchQueue.main.async {
-    //                self.collectionView.reloadData()
-    //            }
-            }
+    private var cityFromZip = "" {
+        didSet {
+            dump(pixPics)
+            print(cityFromZip)
         }
+    }
+    
+    private var pixPics = [PixImage]() {
+        didSet {
+//            dump(pixPics)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,25 +81,32 @@ class ForecastController: UIViewController {
             case .success(let latLong):
                 self.zipCodeString = "\(latLong.lat),\(latLong.long)"
                 self.forecastView.cityLabel.text = latLong.placeName
+                
+                
+                self.loadPix(for: latLong.placeName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)
+                self.cityFromZip = latLong.placeName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+                print(self.pixPics.count)
             }
         }
     }
     
-//    private func loadPix(for search: String) {
-//
-//        PixAPIClient.getPix(for: search) { [weak self] (result) in
-//            switch result {
-//            case .failure(let appError):
-//                DispatchQueue.main.async {
-//                    self?.showAlert(title: "Error", message: "\(appError)")
-//                }
-//            case .success(let pics):
-//                DispatchQueue.main.async {
-//                    self?.pixPics = pics
-//                }
-//            }
-//        }
-//    }
+    private func loadPix(for search: String) {
+//        getZip(search: "10019")
+        PixAPIClient.getPix(for: search) { [weak self] (result) in
+            switch result {
+            case .failure(let appError):
+                DispatchQueue.main.async {
+                    self?.showAlert(title: "Error", message: "\(appError)")
+                }
+            case .success(let pics):
+                DispatchQueue.main.async {
+                    self?.pixPics = pics
+                    self?.pixCount = pics.count
+//                    print(pics.count.description)
+                }
+            }
+        }
+    }
     
 }
 
@@ -103,6 +121,7 @@ extension ForecastController: UICollectionViewDataSource {
             fatalError("could not downcast to ForecastCell")
         }
         let forecast = forecasts[indexPath.row]
+        
         cell.configureCell(for: forecast)
         cell.backgroundColor = .white
         return cell
@@ -112,7 +131,7 @@ extension ForecastController: UICollectionViewDataSource {
 extension ForecastController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
         let maxWidth: CGFloat = UIScreen.main.bounds.size.width
         let itemWidth: CGFloat = maxWidth * 0.305
         return CGSize(width: itemWidth, height: 200)
@@ -120,14 +139,21 @@ extension ForecastController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-//        let forecastDetailStoryboard = UIStoryboard(name: "ForecastDetail", bundle: nil)
-//        guard let forecastDetailController = UIViewController() as? ForecastDetailController else {
-//            fatalError("could not downcast")
-//        }
+        //        let forecastDetailStoryboard = UIStoryboard(name: "ForecastDetail", bundle: nil)
+        //        guard let forecastDetailController = UIViewController() as? ForecastDetailController else {
+        //            fatalError("could not downcast")
+        //        }
         let forecastDetailVC = ForecastDetailController()
         let forecast = forecasts[indexPath.row]
         forecastDetailVC.forecast = forecast
-//        forecastDetailController.forecast = forecast
+        
+        dump(pixPics)
+        let ranIndex = pixPics.count - 1
+        
+        let pixImage = pixPics[Int.random(in: 0...ranIndex)]
+        forecastDetailVC.pixImage = pixImage
+        forecastDetailVC.city = cityFromZip
+        
         navigationController?.pushViewController(forecastDetailVC, animated: true)
     }
 }
@@ -143,8 +169,8 @@ extension ForecastController: UITextFieldDelegate {
         zipCodeString = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         zipCodeString = zipCodeString.replacingOccurrences(of: " ", with: "")
         
-//        getZip(search: zipCodeString)
-        getZip(search: "50021")
+        //        getZip(search: zipCodeString)
+        getZip(search: "10019")
         forecastView.collectionView.isHidden = false
         forecastView.lightningImage.isHidden = true
         textField.resignFirstResponder()

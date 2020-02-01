@@ -26,6 +26,56 @@ class ForecastDetailView: UIView {
         return image
     }()
     
+    public var summaryLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Summary"
+        label.textAlignment = .left
+        //        label.font = UIFont(name: "Damascas", size: 20)
+        label.font = .boldSystemFont(ofSize: 18)
+        return label
+    }()
+    
+    public var sunriseLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Sunrise"
+        label.textAlignment = .left
+        //        label.font = UIFont(name: "Damascas", size: 20)
+        label.font = .boldSystemFont(ofSize: 16)
+        return label
+    }()
+    
+    public var sunsetLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Sunset"
+        label.textAlignment = .left
+        //        label.font = UIFont(name: "Damascas", size: 20)
+        label.font = .boldSystemFont(ofSize: 16)
+        return label
+    }()
+    
+    public var highTempLabel: UILabel = {
+        let label = UILabel()
+        label.text = "High"
+        label.textAlignment = .left
+        //        label.font = UIFont(name: "Damascas", size: 20)
+        label.font = .boldSystemFont(ofSize: 16)
+        return label
+    }()
+    
+    public var lowTempLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Low"
+        label.textAlignment = .left
+        //        label.font = UIFont(name: "Damascas", size: 20)
+        label.font = .boldSystemFont(ofSize: 16)
+        return label
+    }()
+//    public lazy var tabBar: ForecastPhotoTabController = {
+//        let tab = ForecastPhotoTabController()
+//        
+//        return tab
+//    }()
+    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -39,6 +89,11 @@ class ForecastDetailView: UIView {
     private func commonInit() {
         setupCityLabelConstraints()
         setupCityImageConstraints()
+        setupSummaryLabelConstraints()
+        setupSunriseLabelConstraints()
+        setupSunsetLabelConstraints()
+        setupHighTempLabelConstraints()
+        setupLowTempLabelConstraints()
     }
     
     private func setupCityLabelConstraints() {
@@ -66,5 +121,58 @@ class ForecastDetailView: UIView {
         ])
     }
     
+    private func setupSummaryLabelConstraints() {
+        addSubview(summaryLabel)
+        summaryLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            summaryLabel.topAnchor.constraint(equalTo: cityImage.bottomAnchor, constant: 20),
+            summaryLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            summaryLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+        ])
+    }
     
+    private func setupSunriseLabelConstraints() {
+        addSubview(sunriseLabel)
+        sunriseLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            sunriseLabel.topAnchor.constraint(equalTo: summaryLabel.bottomAnchor, constant: 15),
+            sunriseLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            sunriseLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+        ])
+    }
+    
+    private func setupSunsetLabelConstraints() {
+        addSubview(sunsetLabel)
+        sunsetLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            sunsetLabel.topAnchor.constraint(equalTo: sunriseLabel.bottomAnchor, constant: 10),
+            sunsetLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            sunsetLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+        ])
+    }
+    
+    private func setupHighTempLabelConstraints() {
+        addSubview(highTempLabel)
+        highTempLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            highTempLabel.topAnchor.constraint(equalTo: sunsetLabel.bottomAnchor, constant: 10),
+            highTempLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            highTempLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+        ])
+    }
+    
+    private func setupLowTempLabelConstraints() {
+        addSubview(lowTempLabel)
+        lowTempLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            lowTempLabel.topAnchor.constraint(equalTo: highTempLabel.bottomAnchor, constant: 10),
+            lowTempLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            lowTempLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+        ])
+    }
 }

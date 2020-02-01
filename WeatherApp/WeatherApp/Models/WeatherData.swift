@@ -19,6 +19,9 @@ struct Daily: Codable {
 
 struct Data: Codable {
     let time: Int
+    let summary: String
+    let sunriseTime: Int
+    let sunsetTime: Int
     let temperatureHigh: Double
     let temperatureLow: Double
     let icon: String

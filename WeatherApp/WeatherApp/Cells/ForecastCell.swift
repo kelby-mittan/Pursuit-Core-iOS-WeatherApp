@@ -18,7 +18,7 @@ class ForecastCell: UICollectionViewCell {
     func configureCell(for forecast: Data) {
         
         let timeDouble = Double(forecast.time)
-        dateLabel.text = timeDouble.timeConverter()
+        dateLabel.text = timeDouble.dateConverter()
         forecastImage.image = UIImage(named: forecast.icon)
         highLabel.text = "High: \(forecast.temperatureHigh.description)"
         lowLabel.text = "Low: \(forecast.temperatureLow.description)"

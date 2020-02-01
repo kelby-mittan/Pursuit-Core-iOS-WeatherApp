@@ -34,7 +34,7 @@ class ZipCodeHelper {
 }
 
 extension Double {
-    func timeConverter() -> String {
+    func dateConverter() -> String {
         let date = Date(timeIntervalSince1970: self)
         let dateFormatter = DateFormatter()
         
@@ -42,6 +42,18 @@ extension Double {
         dateFormatter.dateStyle = DateFormatter.Style.medium
         dateFormatter.timeZone = .current
         dateFormatter.dateFormat = "EEEE, MMM d"//EEEE, MMM d, yyyy, hh:mm a"
+        let localDate = dateFormatter.string(from: date)
+        return localDate
+    }
+    
+    func timeConverter() -> String {
+        let date = Date(timeIntervalSince1970: self)
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.timeStyle = DateFormatter.Style.medium
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeZone = .current
+        dateFormatter.dateFormat = "hh:mm a"//EEEE, MMM d, yyyy, hh:mm a"
         let localDate = dateFormatter.string(from: date)
         return localDate
     }

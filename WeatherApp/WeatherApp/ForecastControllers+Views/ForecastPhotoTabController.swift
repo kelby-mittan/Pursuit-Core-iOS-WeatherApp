@@ -9,21 +9,25 @@
 import UIKit
 
 class ForecastPhotoTabController: UITabBarController {
-
-    private lazy var forecastVC: ForecastController = {
-            let viewController = ForecastController()
-            viewController.tabBarItem = UITabBarItem(title: "Forecast", image: UIImage(systemName: "1.circle"), tag: 0)
-            return viewController
-        }()
-        
-        
-        
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            
-            viewControllers = [forecastVC]
-        }
     
-
-
+    private lazy var forecastVC: ForecastController = {
+        let viewController = ForecastController()
+        viewController.tabBarItem = UITabBarItem(title: "Forecast", image: UIImage(systemName: "1.circle"), tag: 0)
+        return viewController
+    }()
+    
+    private lazy var pixabayCollectionVC: PixabayCollectionController = {
+        let viewController = PixabayCollectionController()
+        viewController.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "2.circle"), tag: 1)
+        return viewController
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        viewControllers = [forecastVC, pixabayCollectionVC]
+    }
+    
+    
+    
 }

@@ -18,12 +18,13 @@ class ForecastCell: UICollectionViewCell {
     func configureCell(for forecast: Data) {
         
         let timeDouble = Double(forecast.time)
-        
         dateLabel.text = timeDouble.timeConverter()
-        
         forecastImage.image = UIImage(named: forecast.icon)
-        
         highLabel.text = forecast.temperatureHigh.description
+        
+        layer.cornerRadius = 7
+        layer.borderWidth = 3
+        layer.borderColor = UIColor.lightGray.cgColor
     }
     
 }

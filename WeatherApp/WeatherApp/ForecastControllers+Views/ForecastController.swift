@@ -91,6 +91,13 @@ extension ForecastController: UICollectionViewDataSource {
 
 extension ForecastController: UICollectionViewDelegateFlowLayout {
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let maxWidth: CGFloat = UIScreen.main.bounds.size.width
+        let itemWidth: CGFloat = maxWidth * 0.305
+        return CGSize(width: itemWidth, height: 200)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
 //        let forecastDetailStoryboard = UIStoryboard(name: "ForecastDetail", bundle: nil)
@@ -114,7 +121,10 @@ extension ForecastController: UITextFieldDelegate {
         zipCodeString = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         zipCodeString = zipCodeString.replacingOccurrences(of: " ", with: "")
         
-        getZip(search: zipCodeString)
+//        getZip(search: zipCodeString)
+        getZip(search: "50021")
+        forecastView.collectionView.isHidden = false
+        forecastView.lightningImage.isHidden = true
         textField.resignFirstResponder()
         textField.text = ""
         return true

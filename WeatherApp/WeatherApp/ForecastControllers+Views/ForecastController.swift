@@ -47,7 +47,7 @@ class ForecastController: UIViewController {
         forecastView.zipTextField.delegate = self
         
         forecastView.collectionView.register(UINib(nibName: "ForecastCell", bundle: nil), forCellWithReuseIdentifier: "forecastCell")
-        view.backgroundColor = .gray
+        view.backgroundColor = .systemBackground
     }
     
     

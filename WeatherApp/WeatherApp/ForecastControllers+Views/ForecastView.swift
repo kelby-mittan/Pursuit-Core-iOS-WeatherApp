@@ -14,6 +14,8 @@ class ForecastView: UIView {
         let label = UILabel()
         label.text = "Search for Weather!"
         label.textAlignment = .center
+//        label.font = UIFont(name: "Damascas", size: 20)
+        label.font = .boldSystemFont(ofSize: 22)
         return label
     }()
     
@@ -23,7 +25,7 @@ class ForecastView: UIView {
         layout.itemSize = CGSize(width: 120, height: 200)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        cv.backgroundColor = .black
+        cv.backgroundColor = .systemBackground
         cv.isHidden = true
         return cv
     }()
@@ -41,7 +43,7 @@ class ForecastView: UIView {
         
         text.setAttributes(bgColor: .white, placeholderTxt: "Enter Zip Code", placeholderColor: .lightGray, txtColor: .black)
         text.layer.borderWidth = 5
-        text.layer.borderColor = UIColor.darkGray.cgColor
+        text.layer.borderColor = UIColor.black.cgColor
         text.textAlignment = .center
         return text
     }()
@@ -79,10 +81,10 @@ class ForecastView: UIView {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 20),
+            collectionView.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 30),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.35)
+            collectionView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.31)
         ])
     }
     
@@ -91,7 +93,7 @@ class ForecastView: UIView {
         zipTextField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            zipTextField.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
+            zipTextField.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 40),
             zipTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
             zipTextField.widthAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 0.5),
             zipTextField.heightAnchor.constraint(equalToConstant: 45)
@@ -105,8 +107,8 @@ class ForecastView: UIView {
         NSLayoutConstraint.activate([
             lightningImage.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
             lightningImage.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor),
-            lightningImage.widthAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 1.1),
-            lightningImage.heightAnchor.constraint(equalTo: collectionView.heightAnchor, multiplier: 1.1)
+            lightningImage.widthAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 1),
+            lightningImage.heightAnchor.constraint(equalTo: collectionView.heightAnchor, multiplier: 0.8)
         ])
     }
     

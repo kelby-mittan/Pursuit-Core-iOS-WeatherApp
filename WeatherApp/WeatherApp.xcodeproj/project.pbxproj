@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		026B1FDD23E5456100321FBB /* PixAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026B1FDC23E5456100321FBB /* PixAPIClient.swift */; };
+		026B1FDF23E545A600321FBB /* PixModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026B1FDE23E545A600321FBB /* PixModel.swift */; };
 		0280F7B523E4C24E004A3768 /* ForecastAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0280F7B423E4C24E004A3768 /* ForecastAPIClient.swift */; };
 		0280F7B823E4C3B5004A3768 /* ImageKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0280F7B723E4C3B5004A3768 /* ImageKit */; };
 		0280F7BA23E4C80E004A3768 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0280F7B923E4C80E004A3768 /* WeatherData.swift */; };
@@ -24,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		026B1FDC23E5456100321FBB /* PixAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixAPIClient.swift; sourceTree = "<group>"; };
+		026B1FDE23E545A600321FBB /* PixModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixModel.swift; sourceTree = "<group>"; };
 		0280F7B423E4C24E004A3768 /* ForecastAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastAPIClient.swift; sourceTree = "<group>"; };
 		0280F7B923E4C80E004A3768 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		0280F7BC23E4D097004A3768 /* ForecastPhotoTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastPhotoTabController.swift; sourceTree = "<group>"; };
@@ -76,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				0280F7B423E4C24E004A3768 /* ForecastAPIClient.swift */,
+				026B1FDC23E5456100321FBB /* PixAPIClient.swift */,
 				548CE065234D33E600B5177D /* ZipCodeHelper.swift */,
 			);
 			path = "Helpers+Extensions";
@@ -85,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				0280F7B923E4C80E004A3768 /* WeatherData.swift */,
+				026B1FDE23E545A600321FBB /* PixModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -209,6 +215,8 @@
 			files = (
 				0280F7C723E4DD55004A3768 /* ForecastCell.swift in Sources */,
 				0280F7B523E4C24E004A3768 /* ForecastAPIClient.swift in Sources */,
+				026B1FDD23E5456100321FBB /* PixAPIClient.swift in Sources */,
+				026B1FDF23E545A600321FBB /* PixModel.swift in Sources */,
 				548CE066234D33E600B5177D /* ZipCodeHelper.swift in Sources */,
 				0280F7BA23E4C80E004A3768 /* WeatherData.swift in Sources */,
 				029BCD9823E3994200EF1567 /* APIKeys.swift in Sources */,

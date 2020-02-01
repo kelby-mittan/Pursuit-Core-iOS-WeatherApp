@@ -19,7 +19,7 @@ struct Daily: Codable {
 
 struct Data: Codable {
     let time: Int
-    let tempuratureHigh: Double
+    let temperatureHigh: Double
     let temperatureLow: Double
     let icon: String
 }

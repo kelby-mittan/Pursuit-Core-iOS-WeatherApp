@@ -53,16 +53,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0280F7BB23E4CC43004A3768 /* Controller+Cells */ = {
+		026B1FDB23E5195000321FBB /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				0280F7C023E4D636004A3768 /* ForecastController.swift */,
-				0280F7BC23E4D097004A3768 /* ForecastPhotoTabController.swift */,
-				0280F7BE23E4D0D4004A3768 /* ForecastView.swift */,
 				0280F7C423E4DCD3004A3768 /* ForecastCell.xib */,
 				0280F7C623E4DD55004A3768 /* ForecastCell.swift */,
 			);
-			path = "Controller+Cells";
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		0280F7BB23E4CC43004A3768 /* ForecastControllers+Views */ = {
+			isa = PBXGroup;
+			children = (
+				0280F7BC23E4D097004A3768 /* ForecastPhotoTabController.swift */,
+				0280F7C023E4D636004A3768 /* ForecastController.swift */,
+				0280F7BE23E4D0D4004A3768 /* ForecastView.swift */,
+			);
+			path = "ForecastControllers+Views";
 			sourceTree = "<group>";
 		};
 		0280F7C223E4DAE1004A3768 /* Helpers+Extensions */ = {
@@ -110,9 +117,10 @@
 		548CE050234D33B500B5177D /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				026B1FDB23E5195000321FBB /* Cells */,
 				0280F7C323E4DB04004A3768 /* Models */,
 				0280F7C223E4DAE1004A3768 /* Helpers+Extensions */,
-				0280F7BB23E4CC43004A3768 /* Controller+Cells */,
+				0280F7BB23E4CC43004A3768 /* ForecastControllers+Views */,
 				548CE051234D33B500B5177D /* AppDelegate.swift */,
 				548CE053234D33B500B5177D /* SceneDelegate.swift */,
 				548CE05C234D33B600B5177D /* LaunchScreen.storyboard */,

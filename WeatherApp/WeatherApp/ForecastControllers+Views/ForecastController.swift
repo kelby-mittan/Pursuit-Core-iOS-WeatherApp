@@ -101,12 +101,14 @@ extension ForecastController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
 //        let forecastDetailStoryboard = UIStoryboard(name: "ForecastDetail", bundle: nil)
-//        guard let forecastDetailController = forecastDetailStoryboard.instantiateViewController(withIdentifier: "ForecastDetailController") as? ForecastDetailController else {
+//        guard let forecastDetailController = UIViewController() as? ForecastDetailController else {
 //            fatalError("could not downcast")
 //        }
-//        let forecast = forecasts[indexPath.row]
-////        forecastDetailController.forecast = forecast
-//        navigationController?.pushViewController(forecastDetailController, animated: true)
+        let forecastDetailVC = ForecastDetailController()
+        let forecast = forecasts[indexPath.row]
+        forecastDetailVC.forecast = forecast
+//        forecastDetailController.forecast = forecast
+        navigationController?.pushViewController(forecastDetailVC, animated: true)
     }
 }
 

@@ -12,10 +12,11 @@ class ForecastView: UIView {
 
     public var cityLabel: UILabel = {
         let label = UILabel()
-        label.text = "Search for Weather!"
+//        label.text = "Search for Weather!"
         label.textAlignment = .center
+        label.textColor = .white
 //        label.font = UIFont(name: "Damascas", size: 20)
-        label.font = .boldSystemFont(ofSize: 22)
+        label.font = .boldSystemFont(ofSize: 24)
         return label
     }()
     
@@ -32,6 +33,7 @@ class ForecastView: UIView {
     
     public lazy var lightningImage: UIImageView = {
         let image = UIImageView()
+        
         image.image = UIImage(named: "lightningImage")
         image.contentMode = .scaleAspectFill
         return image
@@ -43,7 +45,7 @@ class ForecastView: UIView {
         
         text.setAttributes(bgColor: .white, placeholderTxt: "Enter Zip Code", placeholderColor: .lightGray, txtColor: .black)
         text.layer.borderWidth = 5
-        text.layer.borderColor = UIColor.black.cgColor
+        text.layer.borderColor = UIColor.lightGray.cgColor
         text.textAlignment = .center
         return text
     }()

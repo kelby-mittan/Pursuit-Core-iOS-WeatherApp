@@ -14,10 +14,10 @@ struct WeatherData: Codable {
 
 struct Daily: Codable {
     let summary: String
-    let data: [Data]
+    let data: [DataObject]
 }
 
-struct Data: Codable {
+struct DataObject: Codable {
     let time: Int
     let summary: String
     let sunriseTime: Int

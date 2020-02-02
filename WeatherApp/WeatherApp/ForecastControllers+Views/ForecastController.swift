@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ForecastController: UIViewController {
     
@@ -16,7 +17,7 @@ class ForecastController: UIViewController {
         view = forecastView
     }
     
-    private var forecasts = [Data]() {
+    private var forecasts = [DataObject]() {
         didSet {
             DispatchQueue.main.async {
                 self.forecastView.collectionView.reloadData()
@@ -65,11 +66,19 @@ class ForecastController: UIViewController {
         forecastView.collectionView.delegate = self
         forecastView.zipTextField.delegate = self
         
+        
         forecastView.collectionView.register(UINib(nibName: "ForecastCell", bundle: nil), forCellWithReuseIdentifier: "forecastCell")
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .black
+        
+        forecastView.lightningImage.loadGif(name: "rainGIF")
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        if !forecastView.lightningImage.isHidden {
+            showAlert(title: "Hello", message: "Enter a zipcode to get the weather forecast for the next 7 days!!")
+        }
+    }
     
     
     func getZip(search: String) {
@@ -166,6 +175,7 @@ extension ForecastController: UITextFieldDelegate {
         }
         
         zipCodeString = text
+        
         zipCodeString = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         zipCodeString = zipCodeString.replacingOccurrences(of: " ", with: "")
         
@@ -177,5 +187,7 @@ extension ForecastController: UITextFieldDelegate {
         textField.text = ""
         return true
     }
+    
+    
 }
 

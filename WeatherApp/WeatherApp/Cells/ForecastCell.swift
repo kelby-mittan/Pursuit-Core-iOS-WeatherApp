@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ImageKit
+//import ImageKit
 
 class ForecastCell: UICollectionViewCell {
     @IBOutlet var dateLabel: UILabel!
@@ -15,7 +15,7 @@ class ForecastCell: UICollectionViewCell {
     @IBOutlet var highLabel: UILabel!
     @IBOutlet var lowLabel: UILabel!
     
-    func configureCell(for forecast: Data) {
+    func configureCell(for forecast: DataObject) {
         
         let timeDouble = Double(forecast.time)
         dateLabel.text = timeDouble.dateConverter()

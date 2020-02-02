@@ -16,12 +16,14 @@ class ForecastDetailView: UIView {
         label.textAlignment = .center
         //        label.font = UIFont(name: "Damascas", size: 20)
         label.font = .boldSystemFont(ofSize: 22)
+        label.numberOfLines = 0
+        label.textColor = UIColor.white
         return label
     }()
     
     public lazy var cityImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(systemName: "photo.fill")
+        image.image = nil
         image.contentMode = .scaleAspectFit
         return image
     }()
@@ -32,6 +34,8 @@ class ForecastDetailView: UIView {
         label.textAlignment = .left
         //        label.font = UIFont(name: "Damascas", size: 20)
         label.font = .boldSystemFont(ofSize: 18)
+        label.numberOfLines = 0
+        label.textColor = UIColor.white
         return label
     }()
     
@@ -41,6 +45,7 @@ class ForecastDetailView: UIView {
         label.textAlignment = .left
         //        label.font = UIFont(name: "Damascas", size: 20)
         label.font = .boldSystemFont(ofSize: 16)
+        label.textColor = UIColor.white
         return label
     }()
     
@@ -50,6 +55,7 @@ class ForecastDetailView: UIView {
         label.textAlignment = .left
         //        label.font = UIFont(name: "Damascas", size: 20)
         label.font = .boldSystemFont(ofSize: 16)
+        label.textColor = UIColor.white
         return label
     }()
     
@@ -59,6 +65,7 @@ class ForecastDetailView: UIView {
         label.textAlignment = .left
         //        label.font = UIFont(name: "Damascas", size: 20)
         label.font = .boldSystemFont(ofSize: 16)
+        label.textColor = UIColor.white
         return label
     }()
     
@@ -68,6 +75,7 @@ class ForecastDetailView: UIView {
         label.textAlignment = .left
         //        label.font = UIFont(name: "Damascas", size: 20)
         label.font = .boldSystemFont(ofSize: 16)
+        label.textColor = UIColor.white
         return label
     }()
 //    public lazy var tabBar: ForecastPhotoTabController = {
@@ -148,7 +156,7 @@ class ForecastDetailView: UIView {
         sunsetLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            sunsetLabel.topAnchor.constraint(equalTo: sunriseLabel.bottomAnchor, constant: 10),
+            sunsetLabel.topAnchor.constraint(equalTo: sunriseLabel.bottomAnchor, constant: 6),
             sunsetLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             sunsetLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
@@ -159,7 +167,7 @@ class ForecastDetailView: UIView {
         highTempLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            highTempLabel.topAnchor.constraint(equalTo: sunsetLabel.bottomAnchor, constant: 10),
+            highTempLabel.topAnchor.constraint(equalTo: sunsetLabel.bottomAnchor, constant: 6),
             highTempLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             highTempLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
@@ -170,7 +178,7 @@ class ForecastDetailView: UIView {
         lowTempLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            lowTempLabel.topAnchor.constraint(equalTo: highTempLabel.bottomAnchor, constant: 10),
+            lowTempLabel.topAnchor.constraint(equalTo: highTempLabel.bottomAnchor, constant: 6),
             lowTempLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             lowTempLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])

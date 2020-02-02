@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ImageKit
+//import ImageKit
 import NetworkHelper
 import DataPersistence
 
@@ -17,7 +17,7 @@ class ForecastDetailController: UIViewController {
     
     private let tabBar = ForecastPhotoTabController()
     
-    public var forecast: Data?
+    public var forecast: DataObject?
     
     public var pixImage: PixImage?
     
@@ -30,27 +30,45 @@ class ForecastDetailController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemTeal
-        
-        //        print(pixImage?.largeImageURL)
+        view.backgroundColor = .black
         
         let saveBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(savePhoto))
         self.navigationItem.rightBarButtonItem  = saveBarButtonItem
         
         updateUI()
+        updateImage()
     }
     
     
     private func updateUI() {
         city = city?.replacingOccurrences(of: "%20", with: " ")
-        detailView.cityLabel.text = "Weather Forecast for \(city ?? "N/A")"
+        let date = Double(forecast?.time ?? 0)
+        detailView.cityLabel.text = "Weather Forecast for \(city ?? "N/A") on \(date.dateConverter())"
+        
         detailView.summaryLabel.text = forecast?.summary
+        
+        var sunrise = Double(forecast?.sunriseTime ?? 0).timeConverter().description
+        if sunrise.first == "0" {
+            sunrise.remove(at: sunrise.startIndex)
+        }
+        detailView.sunriseLabel.text = "sunrise: \(sunrise)"
+        
+        var sunset = Double(forecast?.sunsetTime ?? 0).timeConverter().description
+        if sunset.first == "0" {
+            sunset.remove(at: sunset.startIndex)
+        }
+        detailView.sunsetLabel.text = "sunset: \(sunset)"
+
+        detailView.highTempLabel.text = "high: \(String(format: "%g", forecast?.temperatureHigh.rounded() ?? 0))\u{00B0}F"
+        detailView.lowTempLabel.text = "low: \(String(format: "%g", forecast?.temperatureLow.rounded() ?? 0))\u{00B0}F"
+        
+    }
+    
+    private func updateImage() {
         detailView.cityImage.contentMode = .scaleAspectFill
         
-        let sunrise = Double(forecast?.sunriseTime ?? 0)
-        detailView.sunriseLabel.text = "sunrise: \(sunrise.timeConverter())"
-        
         guard let image = pixImage?.largeImageURL else { return }
+        
         detailView.cityImage.getImage(with: image) { [weak self] (result) in
             switch result {
             case .failure:
@@ -61,7 +79,6 @@ class ForecastDetailController: UIViewController {
                 }
             }
         }
-        
     }
     
     @objc func savePhoto(){

@@ -11,7 +11,7 @@ import NetworkHelper
 
 struct ForecastAPIClient {
     
-    static func getForecast(for search: String, completion: @escaping (Result<[Data],AppError>) -> ()) {
+    static func getForecast(for search: String, completion: @escaping (Result<[DataObject],AppError>) -> ()) {
         
         let playerEndpointString = "https://api.darksky.net/forecast/\(APIKey.weatherKey)/\(search)"
         

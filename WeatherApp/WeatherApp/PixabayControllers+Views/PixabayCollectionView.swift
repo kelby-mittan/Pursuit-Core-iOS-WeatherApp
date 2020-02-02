@@ -16,7 +16,7 @@ class PixabayCollectionView: UIView {
         layout.itemSize = CGSize(width: 120, height: 200)
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        cv.backgroundColor = .systemBackground
+        cv.backgroundColor = .darkGray
         return cv
     }()
     

@@ -12,13 +12,14 @@ struct PixSearch: Codable {
     let hits: [PixImage]
 }
 
-struct PixImage: Codable {
+struct PixImage: Codable & Equatable {
     
     let largeImageURL: String
     let pageURL: String
     let tags: String
-    let downloads: Int
-    let userImageURL: String
-    let previewURL: String
+    let imageSize: Int
+//    let downloads: Int
+//    let userImageURL: String
+//    let previewURL: String
     
 }

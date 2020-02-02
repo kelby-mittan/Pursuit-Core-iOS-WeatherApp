@@ -10,12 +10,15 @@ import UIKit
 //import ImageKit
 import NetworkHelper
 import DataPersistence
+import AVFoundation
 
 class ForecastDetailController: UIViewController {
     
     private let detailView = ForecastDetailView()
     
     private let tabBar = ForecastPhotoTabController()
+    
+    public var persistence = DataPersistence<PixImage>(filename: "images.plist")
     
     public var forecast: DataObject?
     
@@ -58,7 +61,7 @@ class ForecastDetailController: UIViewController {
             sunset.remove(at: sunset.startIndex)
         }
         detailView.sunsetLabel.text = "sunset: \(sunset)"
-
+        
         detailView.highTempLabel.text = "high: \(String(format: "%g", forecast?.temperatureHigh.rounded() ?? 0))\u{00B0}F"
         detailView.lowTempLabel.text = "low: \(String(format: "%g", forecast?.temperatureLow.rounded() ?? 0))\u{00B0}F"
         
@@ -81,8 +84,18 @@ class ForecastDetailController: UIViewController {
         }
     }
     
-    @objc func savePhoto(){
-         print("clicked")
+    @objc func savePhoto(_ sender: UIBarButtonItem){
+        print("clicked")
+        sender.isEnabled = false
+        do {
+            guard let favPix = pixImage else { return }
+            try persistence.createItem(favPix)
+            showAlert(title: "Cool", message: "This photo has been favorited")
+        } catch {
+            print("could not save")
+        }
     }
     
 }
+
+

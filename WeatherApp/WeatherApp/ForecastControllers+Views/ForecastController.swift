@@ -57,7 +57,6 @@ class ForecastController: UIViewController {
                     self.forecasts = forecasts
                 }
             }
-            print("\(cityCoordinatesString)is it")
         }
     }
     

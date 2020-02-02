@@ -27,12 +27,13 @@ class ForecastController: UIViewController {
     
     private var pixCount = Int() {
         didSet {
-            print(pixCount)
+            //            print(pixCount)
         }
     }
     
     private var zipCodeString = "" {
         didSet {
+            print("coord: \(zipCodeString)")
             ForecastAPIClient.getForecast(for: zipCodeString) { (result) in
                 switch result {
                 case .failure(let appError):
@@ -41,13 +42,29 @@ class ForecastController: UIViewController {
                     self.forecasts = forecasts
                 }
             }
+            dump(forecasts)
+        }
+    }
+    
+    private var cityCoordinatesString = "" {
+        didSet {
+            
+            ForecastAPIClient.getForecast(for: cityCoordinatesString) { (result) in
+                switch result {
+                case .failure(let appError):
+                    print(appError)
+                case .success(let forecasts):
+                    self.forecasts = forecasts
+                }
+            }
+            print("\(cityCoordinatesString)is it")
         }
     }
     
     private var cityFromZip = "" {
         didSet {
-            dump(pixPics)
-            print(cityFromZip)
+//            dump(pixPics)
+//            print(cityFromZip)
         }
     }
     
@@ -71,28 +88,27 @@ class ForecastController: UIViewController {
         
         forecastView.rainGifImage.loadGif(name: "rainGIF")
         setupNavBar()
-        
     }
     
     private func setupNavBar() {
-//        self.navigationItem.title = "navagation"
-//        navigationController?.navigationBar.topItem?.title = "nav"
-//        navigationController?.navigationBar.barTintColor = .black
-//        self.navigationController?.navigationBar.barTintColor = .black
+        //        self.navigationItem.title = "navagation"
+        //        navigationController?.navigationBar.topItem?.title = "nav"
+        //        navigationController?.navigationBar.barTintColor = .black
+        //        self.navigationController?.navigationBar.barTintColor = .black
         
         UINavigationBar.appearance().barTintColor = .black
-
+        
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor : UIColor.white,
                                                             .font : UIFont.init(name: "AvenirNext-DemiBold", size: 22.0)!]
         UITabBar.appearance().barTintColor = .black
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(true)
-//        if !forecastView.rainGifImage.isHidden {
-//            showAlert(title: "Hello", message: "Enter a zipcode to get the weather forecast for the next 7 days!!")
-//        }
-//    }
+    //    override func viewWillAppear(_ animated: Bool) {
+    //        super.viewWillAppear(true)
+    //        if !forecastView.rainGifImage.isHidden {
+    //            showAlert(title: "Hello", message: "Enter a zipcode to get the weather forecast for the next 7 days!!")
+    //        }
+    //    }
     
     func getZip(search: String) {
         ZipCodeHelper.getLatLong(fromZipCode: search) { (result) in
@@ -104,16 +120,29 @@ class ForecastController: UIViewController {
                 self.zipCodeString = "\(latLong.lat),\(latLong.long)"
                 self.forecastView.cityLabel.text = latLong.placeName
                 
-                
                 self.loadPix(for: latLong.placeName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)
-                self.cityFromZip = latLong.placeName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-                print(self.pixPics.count)
                 self.forecastView.collectionView.isHidden = false
-//                self.forecastView.rainGifImage.isHidden = true
             }
         }
     }
     
+    private func getLatLong(search: String) {
+        LocationAPIClient.getLatLong(for: search) { (result) in
+            switch result {
+            case .failure(let appError):
+                print("\(appError)")
+            case .success(let city):
+                print(city.formatted)
+                print("\(city.geometry.lat),\(city.geometry.lng)")
+                self.cityCoordinatesString = "\(city.geometry.lat),\(city.geometry.lng)"
+                
+                let pixSearch = city.formatted.components(separatedBy: ",").first!
+                self.cityFromZip = pixSearch
+                self.loadPix(for: pixSearch.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)
+                print(pixSearch)
+            }
+        }
+    }
     
     
     private func loadPix(for search: String) {
@@ -162,22 +191,17 @@ extension ForecastController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        //        let forecastDetailStoryboard = UIStoryboard(name: "ForecastDetail", bundle: nil)
-        //        guard let forecastDetailController = UIViewController() as? ForecastDetailController else {
-        //            fatalError("could not downcast")
-        //        }
         let forecastDetailVC = ForecastDetailController()
         let forecast = forecasts[indexPath.row]
         forecastDetailVC.forecast = forecast
-        
         dump(pixPics)
         let ranIndex = pixPics.count - 1
         
-        let pixImage = pixPics[Int.random(in: 0...ranIndex)]
-        forecastDetailVC.pixImage = pixImage
+        if !pixPics.isEmpty {
+            let pixImage = pixPics[Int.random(in: 0...ranIndex)]
+            forecastDetailVC.pixImage = pixImage
+        }
         forecastDetailVC.city = cityFromZip
-        
         navigationController?.pushViewController(forecastDetailVC, animated: true)
     }
 }
@@ -189,14 +213,19 @@ extension ForecastController: UITextFieldDelegate {
             return false
         }
         
-        zipCodeString = text
+        if let _ = text.rangeOfCharacter(from: NSCharacterSet.letters) {
+            cityCoordinatesString = text
+            getLatLong(search: cityCoordinatesString.replacingOccurrences(of: " ", with: "+"))
+            loadPix(for: text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)
+            forecastView.cityLabel.text = text
+            print("latlong:\(cityFromZip)")
+        } else {
+            zipCodeString = text
+            getZip(search: zipCodeString)
+            print("\(zipCodeString) is the lat long")
+        }
         
-        zipCodeString = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-        zipCodeString = zipCodeString.replacingOccurrences(of: " ", with: "")
-        
-        getZip(search: zipCodeString)
-//        getZip(search: "10019")
-//        forecastView.collectionView.isHidden = false
+        forecastView.collectionView.isHidden = false
         forecastView.rainGifImage.isHidden = true
         textField.resignFirstResponder()
         textField.text = ""

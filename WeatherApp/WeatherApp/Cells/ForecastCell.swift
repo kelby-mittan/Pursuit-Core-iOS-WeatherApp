@@ -20,8 +20,8 @@ class ForecastCell: UICollectionViewCell {
         let timeDouble = Double(forecast.time)
         dateLabel.text = timeDouble.dateConverter()
         forecastImage.image = UIImage(named: forecast.icon)
-        highLabel.text = "High: \(forecast.temperatureHigh.description)"
-        lowLabel.text = "Low: \(forecast.temperatureLow.description)"
+        highLabel.text = "High: \(String(format: "%g", forecast.temperatureHigh.rounded()))\u{00B0}F"
+        lowLabel.text = "Low: \(String(format: "%g", forecast.temperatureLow.rounded()))\u{00B0}F"
         pulsatingAnimation()
         layer.cornerRadius = 7
         layer.borderWidth = 5

@@ -66,20 +66,33 @@ class ForecastController: UIViewController {
         forecastView.collectionView.delegate = self
         forecastView.zipTextField.delegate = self
         
-        
         forecastView.collectionView.register(UINib(nibName: "ForecastCell", bundle: nil), forCellWithReuseIdentifier: "forecastCell")
         view.backgroundColor = .black
         
-        forecastView.lightningImage.loadGif(name: "rainGIF")
+        forecastView.rainGifImage.loadGif(name: "rainGIF")
+        setupNavBar()
+        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        if !forecastView.lightningImage.isHidden {
-            showAlert(title: "Hello", message: "Enter a zipcode to get the weather forecast for the next 7 days!!")
-        }
+    private func setupNavBar() {
+//        self.navigationItem.title = "navagation"
+//        navigationController?.navigationBar.topItem?.title = "nav"
+//        navigationController?.navigationBar.barTintColor = .black
+//        self.navigationController?.navigationBar.barTintColor = .black
+        
+        UINavigationBar.appearance().barTintColor = .black
+
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor : UIColor.white,
+                                                            .font : UIFont.init(name: "AvenirNext-DemiBold", size: 22.0)!]
+        UITabBar.appearance().barTintColor = .black
     }
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(true)
+//        if !forecastView.rainGifImage.isHidden {
+//            showAlert(title: "Hello", message: "Enter a zipcode to get the weather forecast for the next 7 days!!")
+//        }
+//    }
     
     func getZip(search: String) {
         ZipCodeHelper.getLatLong(fromZipCode: search) { (result) in
@@ -95,12 +108,15 @@ class ForecastController: UIViewController {
                 self.loadPix(for: latLong.placeName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)
                 self.cityFromZip = latLong.placeName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
                 print(self.pixPics.count)
+                self.forecastView.collectionView.isHidden = false
+//                self.forecastView.rainGifImage.isHidden = true
             }
         }
     }
     
+    
+    
     private func loadPix(for search: String) {
-//        getZip(search: "10019")
         PixAPIClient.getPix(for: search) { [weak self] (result) in
             switch result {
             case .failure(let appError):
@@ -111,7 +127,6 @@ class ForecastController: UIViewController {
                 DispatchQueue.main.async {
                     self?.pixPics = pics
                     self?.pixCount = pics.count
-//                    print(pics.count.description)
                 }
             }
         }
@@ -179,10 +194,10 @@ extension ForecastController: UITextFieldDelegate {
         zipCodeString = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         zipCodeString = zipCodeString.replacingOccurrences(of: " ", with: "")
         
-        //        getZip(search: zipCodeString)
-        getZip(search: "10019")
-        forecastView.collectionView.isHidden = false
-        forecastView.lightningImage.isHidden = true
+        getZip(search: zipCodeString)
+//        getZip(search: "10019")
+//        forecastView.collectionView.isHidden = false
+        forecastView.rainGifImage.isHidden = true
         textField.resignFirstResponder()
         textField.text = ""
         return true

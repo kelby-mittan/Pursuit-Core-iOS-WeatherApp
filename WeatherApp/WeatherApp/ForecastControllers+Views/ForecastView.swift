@@ -31,7 +31,7 @@ class ForecastView: UIView {
         return cv
     }()
     
-    public lazy var lightningImage: UIImageView = {
+    public lazy var rainGifImage: UIImageView = {
         let image = UIImageView()
         
         image.image = UIImage(named: "lightningImage")
@@ -64,7 +64,7 @@ class ForecastView: UIView {
         setupCityLabelConstraints()
         setupCollectionViewConstraints()
         setupTextFieldConstraints()
-        setupLightningImageConstraints()
+        setupRainGifConstraints()
     }
     
     private func setupCityLabelConstraints() {
@@ -102,15 +102,15 @@ class ForecastView: UIView {
         ])
     }
     
-    private func setupLightningImageConstraints() {
-        addSubview(lightningImage)
-        lightningImage.translatesAutoresizingMaskIntoConstraints = false
+    private func setupRainGifConstraints() {
+        addSubview(rainGifImage)
+        rainGifImage.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            lightningImage.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
-            lightningImage.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor),
-            lightningImage.widthAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 1),
-            lightningImage.heightAnchor.constraint(equalTo: collectionView.heightAnchor, multiplier: 0.8)
+            rainGifImage.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
+            rainGifImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            rainGifImage.widthAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 1),
+            rainGifImage.heightAnchor.constraint(equalTo: collectionView.heightAnchor, multiplier: 1.1)
         ])
     }
     

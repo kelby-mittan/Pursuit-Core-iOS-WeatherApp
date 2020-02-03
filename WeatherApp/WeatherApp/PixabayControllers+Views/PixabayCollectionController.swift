@@ -8,6 +8,7 @@
 
 import UIKit
 import DataPersistence
+import SafariServices
 
 class PixabayCollectionController: UIViewController {
 
@@ -27,6 +28,11 @@ class PixabayCollectionController: UIViewController {
         view = pixView
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        loadPix()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,7 +40,8 @@ class PixabayCollectionController: UIViewController {
         pixView.collectionView.delegate = self
         
         pixView.collectionView.register(UINib(nibName: "FavPixCell", bundle: nil), forCellWithReuseIdentifier: "pixCell")
-        loadPix()
+//        loadPix()
+        
     }
     
     private func loadPix() {
@@ -58,6 +65,7 @@ extension PixabayCollectionController: UICollectionViewDataSource {
             fatalError("could not downcast to FavPixCell")
         }
         let pixImage = pixPics[indexPath.row]
+//        forecastDetailVC.pixDelegate = self
         
         cell.configureCell(for: pixImage)
         cell.backgroundColor = .white
@@ -75,6 +83,30 @@ extension PixabayCollectionController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("did select")
         
+        let webString = pixPics[indexPath.row].pageURL
+        
+        guard let url = URL(string: webString) else {
+            print("no project url")
+            return
+        }
+        
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true)
     }
+}
+
+extension PixabayCollectionController: AddPixPicToCollection {
+    func updateCollectionView(pixImage: PixImage) {
+        pixPics.insert(pixImage, at: 0)
+        do {
+            try persistence.createItem(pixImage)
+            
+        } catch {
+            print("could not create")
+        }
+    }
+    
+    
 }

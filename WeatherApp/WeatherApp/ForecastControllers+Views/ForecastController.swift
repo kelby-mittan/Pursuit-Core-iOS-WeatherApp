@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 
+
 class ForecastController: UIViewController {
     
     private let forecastView = ForecastView()

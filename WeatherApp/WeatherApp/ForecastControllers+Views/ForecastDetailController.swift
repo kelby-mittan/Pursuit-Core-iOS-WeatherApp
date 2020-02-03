@@ -12,11 +12,15 @@ import NetworkHelper
 import DataPersistence
 import AVFoundation
 
+protocol AddPixPicToCollection: AnyObject {
+    func updateCollectionView(pixImage: PixImage)
+}
+
 class ForecastDetailController: UIViewController {
     
     private let detailView = ForecastDetailView()
     
-    private let tabBar = ForecastPhotoTabController()
+//    private let tabBar = ForecastPhotoTabController()
     
     public var persistence = DataPersistence<PixImage>(filename: "images.plist")
     
@@ -25,6 +29,8 @@ class ForecastDetailController: UIViewController {
     public var pixImage: PixImage?
     
     public var city: String?
+    
+    weak var pixDelegate: AddPixPicToCollection?
     
     override func loadView() {
         view = detailView
@@ -40,6 +46,7 @@ class ForecastDetailController: UIViewController {
         
         updateUI()
         updateImage()
+        
     }
     
     
@@ -87,9 +94,15 @@ class ForecastDetailController: UIViewController {
     @objc func savePhoto(_ sender: UIBarButtonItem){
         print("clicked")
         sender.isEnabled = false
+        
+        guard let favPix = pixImage else { return }
+        pixDelegate?.updateCollectionView(pixImage: favPix)
+        
         do {
             guard let favPix = pixImage else { return }
+            pixDelegate?.updateCollectionView(pixImage: favPix)
             try persistence.createItem(favPix)
+            
             showAlert(title: "Cool", message: "This photo has been favorited")
         } catch {
             print("could not save")

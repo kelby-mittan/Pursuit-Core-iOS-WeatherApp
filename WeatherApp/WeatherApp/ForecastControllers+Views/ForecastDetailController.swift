@@ -20,8 +20,6 @@ class ForecastDetailController: UIViewController {
     
     private let detailView = ForecastDetailView()
     
-//    private let tabBar = ForecastPhotoTabController()
-    
     public var persistence = DataPersistence<PixImage>(filename: "images.plist")
     
     public var forecast: DataObject?

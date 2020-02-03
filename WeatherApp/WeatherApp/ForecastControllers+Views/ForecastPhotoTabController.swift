@@ -19,6 +19,7 @@ class ForecastPhotoTabController: UITabBarController {
     public lazy var pixabayCollectionVC: PixabayCollectionController = {
         let viewController = PixabayCollectionController()
         viewController.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "2.circle"), tag: 1)
+        viewController.tabBarController?.tabBar.backgroundColor = .black
         return viewController
     }()
     

@@ -26,15 +26,8 @@ class ForecastController: UIViewController {
         }
     }
     
-    private var pixCount = Int() {
-        didSet {
-            //            print(pixCount)
-        }
-    }
-    
     private var zipCodeString = "" {
         didSet {
-            print("coord: \(zipCodeString)")
             ForecastAPIClient.getForecast(for: zipCodeString) { (result) in
                 switch result {
                 case .failure(let appError):
@@ -61,18 +54,9 @@ class ForecastController: UIViewController {
         }
     }
     
-    private var cityFromZip = "" {
-        didSet {
-//            dump(pixPics)
-//            print(cityFromZip)
-        }
-    }
+    private var cityFromZip = ""
     
-    private var pixPics = [PixImage]() {
-        didSet {
-//            dump(pixPics)
-        }
-    }
+    private var pixPics = [PixImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,7 +103,7 @@ class ForecastController: UIViewController {
             case .success(let latLong):
                 self.zipCodeString = "\(latLong.lat),\(latLong.long)"
                 self.forecastView.cityLabel.text = latLong.placeName
-                
+                self.cityFromZip = latLong.placeName
                 self.loadPix(for: latLong.placeName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)
                 self.forecastView.collectionView.isHidden = false
             }
@@ -155,7 +139,7 @@ class ForecastController: UIViewController {
             case .success(let pics):
                 DispatchQueue.main.async {
                     self?.pixPics = pics
-                    self?.pixCount = pics.count
+//                    self?.pixCount = pics.count
                 }
             }
         }
@@ -194,6 +178,7 @@ extension ForecastController: UICollectionViewDelegateFlowLayout {
         let forecastDetailVC = ForecastDetailController()
         let forecast = forecasts[indexPath.row]
         forecastDetailVC.forecast = forecast
+        forecastDetailVC.city = cityFromZip
         dump(pixPics)
         let ranIndex = pixPics.count - 1
         
@@ -201,7 +186,6 @@ extension ForecastController: UICollectionViewDelegateFlowLayout {
             let pixImage = pixPics[Int.random(in: 0...ranIndex)]
             forecastDetailVC.pixImage = pixImage
         }
-        forecastDetailVC.city = cityFromZip
         navigationController?.pushViewController(forecastDetailVC, animated: true)
     }
 }

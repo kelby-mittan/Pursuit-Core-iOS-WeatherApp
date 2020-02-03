@@ -24,13 +24,8 @@ struct Geometry: Codable {
     let lng: Double
 }
 
-struct Alphabet {
-    static let alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-}
+//struct Alphabet {
+//    static let alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+//}
 
-//"confidence": 1,
-//"formatted": "Los Angeles, CA, United States of America",
-//"geometry": {
-//    "lat": 34.0536909,
-//    "lng": -118.2427666
 

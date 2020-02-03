@@ -43,7 +43,7 @@ class ForecastView: UIView {
         let text = UITextField()
 //        text.placeholder = "Enter Zip Code"
         
-        text.setAttributes(bgColor: .white, placeholderTxt: "Enter Zip Code", placeholderColor: .lightGray, txtColor: .black)
+        text.setAttributes(bgColor: .white, placeholderTxt: "Search by Zip or City", placeholderColor: .lightGray, txtColor: .black)
         text.layer.borderWidth = 5
         text.layer.borderColor = UIColor.lightGray.cgColor
         text.textAlignment = .center
@@ -113,8 +113,6 @@ class ForecastView: UIView {
             rainGifImage.heightAnchor.constraint(equalTo: collectionView.heightAnchor, multiplier: 1.1)
         ])
     }
-    
-
 }
 
 extension UITextField {

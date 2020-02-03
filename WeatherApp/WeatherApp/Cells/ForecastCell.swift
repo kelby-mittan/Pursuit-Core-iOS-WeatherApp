@@ -29,6 +29,7 @@ class ForecastCell: UICollectionViewCell {
     }
     
     private func pulsatingAnimation() {
+        
         UIView.animate(withDuration: 0.7, delay: 0.0, options: [.repeat,.autoreverse], animations: {
 
             self.forecastImage.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)

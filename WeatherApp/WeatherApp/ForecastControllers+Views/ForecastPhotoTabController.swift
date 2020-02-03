@@ -10,24 +10,34 @@ import UIKit
 
 class ForecastPhotoTabController: UITabBarController {
     
-    public lazy var forecastVC: ForecastController = {
-        let viewController = ForecastController()
-        viewController.tabBarItem = UITabBarItem(title: "Forecast", image: UIImage(systemName: "1.circle"), tag: 0)
-        return viewController
-    }()
+        public lazy var forecastVC: UINavigationController = {
+            let viewController = UINavigationController(rootViewController: ForecastController())
+            viewController.tabBarItem = UITabBarItem(title: "Weather", image: UIImage(systemName: "cloud.sun.rain.fill"), tag: 0)
+            return viewController
+        }()
     
-    public lazy var pixabayCollectionVC: PixabayCollectionController = {
-        let viewController = PixabayCollectionController()
-        viewController.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "2.circle"), tag: 1)
-        viewController.tabBarController?.tabBar.backgroundColor = .black
-        return viewController
-    }()
+        public lazy var pixabayCollectionVC: PixabayCollectionController = {
+            let viewController = PixabayCollectionController()
+            viewController.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "star.fill"), tag: 1)
+            viewController.tabBarController?.tabBar.backgroundColor = .black
+            return viewController
+        }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        let forecastVC = UINavigationController(rootViewController: ForecastController())
+//        forecastVC.tabBarItem = UITabBarItem(title: "Weather", image: UIImage(systemName: "cloud.sun.rain.fill"), tag: 0)
+//
+//        let pixController = PixabayCollectionController()
+//        pixController.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "star.fill"), tag: 1)
+        
+//        self.tabBarController?.tabBar.backgroundColor = .black
+        
         viewControllers = [forecastVC, pixabayCollectionVC]
+        
     }
+    
     
     
     

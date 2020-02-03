@@ -15,7 +15,6 @@ class ForecastView: UIView {
 //        label.text = "Search for Weather!"
         label.textAlignment = .center
         label.textColor = .white
-//        label.font = UIFont(name: "Damascas", size: 20)
         label.font = .boldSystemFont(ofSize: 24)
         return label
     }()
@@ -41,7 +40,6 @@ class ForecastView: UIView {
     
     public lazy var zipTextField: UITextField = {
         let text = UITextField()
-//        text.placeholder = "Enter Zip Code"
         
         text.setAttributes(bgColor: .white, placeholderTxt: "Search by Zip or City", placeholderColor: .lightGray, txtColor: .black)
         text.layer.borderWidth = 5

@@ -146,10 +146,13 @@ extension ForecastController: UICollectionViewDataSource {
         }
         let forecast = forecasts[indexPath.row]
         
+        
         cell.configureCell(for: forecast)
-        cell.backgroundColor = .white
+        cell.backgroundColor = .white        
+        
         return cell
     }
+    
 }
 
 extension ForecastController: UICollectionViewDelegateFlowLayout {
@@ -186,10 +189,11 @@ extension ForecastController: UITextFieldDelegate {
         
         if let _ = text.rangeOfCharacter(from: NSCharacterSet.letters) {
             cityCoordinatesString = text
-            //            getLatLong(search: cityCoordinatesString.replacingOccurrences(of: " ", with: "+"))
             getZip(search: cityCoordinatesString)
-            //            loadPix(for: text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)
             forecastView.cityLabel.text = text
+            //            getLatLong(search: cityCoordinatesString.replacingOccurrences(of: " ", with: "+"))
+            
+            //            loadPix(for: text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)
         } else {
             zipCodeString = text
             getZip(search: zipCodeString)
@@ -205,4 +209,5 @@ extension ForecastController: UITextFieldDelegate {
     
     
 }
+
 

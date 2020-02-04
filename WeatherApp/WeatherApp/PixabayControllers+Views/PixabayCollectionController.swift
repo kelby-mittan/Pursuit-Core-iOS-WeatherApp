@@ -11,7 +11,7 @@ import DataPersistence
 import SafariServices
 
 class PixabayCollectionController: UIViewController {
-
+    
     private let pixView = PixabayCollectionView()
     
     public var persistence = DataPersistence<PixImage>(filename: "images.plist")
@@ -40,7 +40,7 @@ class PixabayCollectionController: UIViewController {
         pixView.collectionView.delegate = self
         
         pixView.collectionView.register(UINib(nibName: "FavPixCell", bundle: nil), forCellWithReuseIdentifier: "pixCell")
-//        loadPix()
+        //        loadPix()
         
     }
     
@@ -51,7 +51,7 @@ class PixabayCollectionController: UIViewController {
             print("cannot load images")
         }
     }
-
+    
 }
 
 extension PixabayCollectionController: UICollectionViewDataSource {
@@ -65,8 +65,8 @@ extension PixabayCollectionController: UICollectionViewDataSource {
             fatalError("could not downcast to FavPixCell")
         }
         let pixImage = pixPics[indexPath.row]
-//        forecastDetailVC.pixDelegate = self
-        
+        //        forecastDetailVC.pixDelegate = self
+        cell.delegate = self
         cell.configureCell(for: pixImage)
         cell.backgroundColor = .white
         return cell
@@ -109,4 +109,40 @@ extension PixabayCollectionController: AddPixPicToCollection {
     }
     
     
+}
+
+extension PixabayCollectionController: ImageCellDelegate {
+    func didLongPress(_ imageCell: FavPixCell) {
+        print("delegate working")
+        
+        guard let indexPath = pixView.collectionView.indexPath(for: imageCell) else {
+            return
+        }
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        present(alertController, animated: true)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] alertAction in
+            self?.deleteImageObject(indexPath: indexPath)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+    }
+    
+    private func deleteImageObject(indexPath: IndexPath) {
+        do {
+            try persistence.deleteItem(at: indexPath.row)
+            
+            pixPics.remove(at: indexPath.row)
+            
+            pixView.collectionView.deleteItems(at: [indexPath])
+            
+        } catch {
+            print("Error deleting")
+        }
+        
+    }
 }

@@ -40,20 +40,6 @@ class ForecastController: UIViewController {
         }
     }
     
-    private var cityCoordinatesString = "" {
-        didSet {
-            
-            ForecastAPIClient.getForecast(for: cityCoordinatesString) { (result) in
-                switch result {
-                case .failure(let appError):
-                    print(appError)
-                case .success(let forecasts):
-                    self.forecasts = forecasts
-                }
-            }
-        }
-    }
-    
     private var cityFromZip = ""
     
     private var pixPics = [PixImage]()
@@ -97,25 +83,6 @@ class ForecastController: UIViewController {
             }
         }
     }
-    
-    private func getLatLong(search: String) {
-        LocationAPIClient.getLatLong(for: search) { (result) in
-            switch result {
-            case .failure(let appError):
-                print("\(appError)")
-            case .success(let city):
-                print(city.formatted)
-                print("\(city.geometry.lat),\(city.geometry.lng)")
-                self.cityCoordinatesString = "\(city.geometry.lat),\(city.geometry.lng)"
-                
-                let pixSearch = city.formatted.components(separatedBy: ",").first!
-                self.cityFromZip = pixSearch
-                self.loadPix(for: pixSearch.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)
-                print(pixSearch)
-            }
-        }
-    }
-    
     
     private func loadPix(for search: String) {
         PixAPIClient.getPix(for: search) { [weak self] (result) in
@@ -187,18 +154,8 @@ extension ForecastController: UITextFieldDelegate {
             return false
         }
         
-        if let _ = text.rangeOfCharacter(from: NSCharacterSet.letters) {
-            cityCoordinatesString = text
-            getZip(search: cityCoordinatesString)
-            forecastView.cityLabel.text = text
-            //            getLatLong(search: cityCoordinatesString.replacingOccurrences(of: " ", with: "+"))
-            
-            //            loadPix(for: text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)
-        } else {
-            zipCodeString = text
-            getZip(search: zipCodeString)
-            print("\(zipCodeString) is the lat long")
-        }
+        zipCodeString = text
+        getZip(search: zipCodeString)
         
         forecastView.collectionView.isHidden = false
         forecastView.rainGifImage.isHidden = true

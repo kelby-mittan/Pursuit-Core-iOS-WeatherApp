@@ -8,11 +8,19 @@
 
 import UIKit
 import CoreLocation
+import DataPersistence
 
+struct RecentSearchKey {
+    static let zipOrCity = "Zip or City"
+}
 
 class ForecastController: UIViewController {
     
     private let forecastView = ForecastView()
+    
+    public var dataPersistence: DataPersistence<PixImage>!
+    
+//    public var persistence = DataPersistence<PixImage>(filename: "images.plist")
     
     override func loadView() {
         view = forecastView
@@ -36,7 +44,7 @@ class ForecastController: UIViewController {
                     self.forecasts = forecasts
                 }
             }
-            dump(forecasts)
+//            dump(forecasts)
         }
     }
     
@@ -127,7 +135,7 @@ extension ForecastController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let maxWidth: CGFloat = UIScreen.main.bounds.size.width
-        let itemWidth: CGFloat = maxWidth * 0.305
+        let itemWidth: CGFloat = maxWidth * 0.308
         return CGSize(width: itemWidth, height: 200)
     }
     
@@ -153,6 +161,8 @@ extension ForecastController: UITextFieldDelegate {
         guard let text = textField.text else {
             return false
         }
+        
+        UserDefaults.standard.set(text, forKey: RecentSearchKey.zipOrCity)
         
         zipCodeString = text
         getZip(search: zipCodeString)

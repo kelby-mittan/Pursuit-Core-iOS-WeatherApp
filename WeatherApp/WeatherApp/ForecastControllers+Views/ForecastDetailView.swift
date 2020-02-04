@@ -124,7 +124,7 @@ class ForecastDetailView: UIView {
         NSLayoutConstraint.activate([
             cityImage.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 10),
             cityImage.centerXAnchor.constraint(equalTo: centerXAnchor),
-            cityImage.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.75),
+            cityImage.widthAnchor.constraint(equalTo: widthAnchor),
             cityImage.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.4)
         ])
     }

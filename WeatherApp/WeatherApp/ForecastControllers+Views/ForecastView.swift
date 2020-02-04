@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import DataPersistence
 
 class ForecastView: UIView {
 
+    public var dataPersistence: DataPersistence<PixImage>!
+    
     public var cityLabel: UILabel = {
         let label = UILabel()
 //        label.text = "Search for Weather!"
@@ -23,7 +26,7 @@ class ForecastView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 120, height: 200)
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 10)
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         cv.backgroundColor = .systemBackground
         cv.isHidden = true

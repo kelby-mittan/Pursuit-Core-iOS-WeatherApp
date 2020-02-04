@@ -7,12 +7,11 @@
 //
 
 import UIKit
-//import ImageKit
 import NetworkHelper
 import DataPersistence
 import AVFoundation
 
-protocol AddPixPicToCollection: AnyObject {
+protocol AddPhotoToFavorites: AnyObject {
     func updateCollectionView(pixImage: PixImage)
 }
 
@@ -22,13 +21,15 @@ class ForecastDetailController: UIViewController {
     
     public var persistence = DataPersistence<PixImage>(filename: "images.plist")
     
+//    public var dataPersistence: DataPersistence<PixImage>!
+    
     public var forecast: DataObject?
     
     public var pixImage: PixImage?
     
     public var city: String?
     
-    weak var pixDelegate: AddPixPicToCollection?
+    weak var pixDelegate: AddPhotoToFavorites?
     
     override func loadView() {
         view = detailView
@@ -87,6 +88,8 @@ class ForecastDetailController: UIViewController {
                 }
             }
         }
+        
+        
     }
     
     @objc func savePhoto(_ sender: UIBarButtonItem){
@@ -96,14 +99,26 @@ class ForecastDetailController: UIViewController {
         guard let favPix = pixImage else { return }
         pixDelegate?.updateCollectionView(pixImage: favPix)
         
+        let duration: Double = 1.25
+        let curveOption: UIView.AnimationOptions = .curveEaseInOut
+        
+            
+        UIView.transition(with: detailView.cityImage, duration: duration, options: [.transitionFlipFromRight, curveOption], animations: {
+            
+                
+            }) { (done) in
+                self.showAlert(title: "Cool", message: "This photo has been favorited")
+            }
+        
         do {
             guard let favPix = pixImage else { return }
             pixDelegate?.updateCollectionView(pixImage: favPix)
             try persistence.createItem(favPix)
             
-            showAlert(title: "Cool", message: "This photo has been favorited")
+//            showAlert(title: "Cool", message: "This photo has been favorited")
         } catch {
             print("could not save")
+            showAlert(title: "Sorry", message: "This photo could not be favorited")
         }
     }
     

@@ -73,7 +73,6 @@ class ForecastDetailView: UIView {
         let label = UILabel()
         label.text = "Low"
         label.textAlignment = .left
-        //        label.font = UIFont(name: "Damascas", size: 20)
         label.font = .boldSystemFont(ofSize: 16)
         label.textColor = UIColor.white
         return label
@@ -121,8 +120,6 @@ class ForecastDetailView: UIView {
         ])
     }
 
-    
-    
     private func setupCityImageConstraints() {
         addSubview(cityImage)
         cityImage.translatesAutoresizingMaskIntoConstraints = false
@@ -195,10 +192,10 @@ class ForecastDetailView: UIView {
         savedLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            savedLabel.centerXAnchor.constraint(equalTo: cityImage.centerXAnchor),
+            savedLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             savedLabel.centerYAnchor.constraint(equalTo: cityImage.centerYAnchor),
             savedLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            savedLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 20)
+            savedLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
     }
 }

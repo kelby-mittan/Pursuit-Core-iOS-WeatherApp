@@ -19,11 +19,8 @@ class ForecastDetailController: UIViewController {
     
     private let detailView = ForecastDetailView()
     public var dataPersistence: DataPersistence<PixImage>!
-    
     public var forecast: DataObject?
-    
     public var pixImage: PixImage?
-    
     public var city: String?
     
     weak var pixDelegate: AddPhotoToFavorites?
@@ -86,8 +83,6 @@ class ForecastDetailController: UIViewController {
                 }
             }
         }
-        
-        
     }
     
     @objc func savePhoto(_ sender: UIBarButtonItem){
@@ -97,18 +92,6 @@ class ForecastDetailController: UIViewController {
         guard let favPix = pixImage else { return }
         pixDelegate?.updateCollectionView(pixImage: favPix)
         
-        let duration: Double = 1.25
-        let curveOption: UIView.AnimationOptions = .curveEaseInOut
-        
-        
-        UIView.transition(with: detailView.cityImage, duration: duration, options: [.transitionFlipFromRight, curveOption], animations: {
-            
-            
-        }) { (done) in
-            self.detailView.savedLabel.isHidden = false
-            self.detailView.cityImage.alpha = 0.35
-        }
-        
         do {
             guard let favPix = pixImage else { return }
             pixDelegate?.updateCollectionView(pixImage: favPix)
@@ -117,6 +100,21 @@ class ForecastDetailController: UIViewController {
         } catch {
             print("could not save")
             showAlert(title: "Sorry", message: "This photo could not be favorited")
+        }
+        
+        animateSavedPhoto()
+    }
+    
+    private func animateSavedPhoto() {
+        let duration: Double = 1.25
+        let curveOption: UIView.AnimationOptions = .curveEaseInOut
+        
+        UIView.transition(with: detailView.cityImage, duration: duration, options: [.transitionFlipFromRight, curveOption], animations: {
+            
+            
+        }) { (done) in
+            self.detailView.savedLabel.isHidden = false
+            self.detailView.cityImage.alpha = 0.35
         }
     }
     

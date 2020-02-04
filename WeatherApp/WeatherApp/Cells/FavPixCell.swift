@@ -19,7 +19,7 @@ class FavPixCell: UICollectionViewCell {
     weak var delegate: ImageCellDelegate?
     
     private lazy var longPressGesture: UILongPressGestureRecognizer = {
-       let gesture = UILongPressGestureRecognizer()
+        let gesture = UILongPressGestureRecognizer()
         gesture.addTarget(self, action: #selector(longPressAction(gesture:)))
         return gesture
     }()

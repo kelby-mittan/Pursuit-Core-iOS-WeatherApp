@@ -25,15 +25,13 @@ class ForecastPhotoTabController: UITabBarController {
         let viewController = PixabayCollectionController()
         viewController.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "star.fill"), tag: 1)
         viewController.tabBarController?.tabBar.backgroundColor = .black
+        
         return viewController
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        foreCastCollectionVC.dataPersistence = persistence
-        
-//        forecastVC.topViewController.
         
         guard let forecastCollectionVC = forecastVC.viewControllers.first as? ForecastController else {
             return
@@ -42,6 +40,7 @@ class ForecastPhotoTabController: UITabBarController {
         forecastCollectionVC.dataPersistence = persistence
         
         pixabayCollectionVC.dataPersistence = persistence
+        pixabayCollectionVC.dataPersistence.delegate = pixabayCollectionVC
         viewControllers = [forecastVC, pixabayCollectionVC]
         
     }

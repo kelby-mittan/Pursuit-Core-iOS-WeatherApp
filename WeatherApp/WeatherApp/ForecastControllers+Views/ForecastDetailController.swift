@@ -23,7 +23,7 @@ class ForecastDetailController: UIViewController {
     public var pixImage: PixImage?
     public var city: String?
     
-    weak var pixDelegate: AddPhotoToFavorites?
+    weak var pixDelegate: AddPhotoToFavorites!
     
     override func loadView() {
         view = detailView
@@ -40,7 +40,6 @@ class ForecastDetailController: UIViewController {
         
         updateUI()
         updateImage()
-        
     }
     
     

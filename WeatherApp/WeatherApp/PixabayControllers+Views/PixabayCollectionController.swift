@@ -13,10 +13,10 @@ import SafariServices
 class PixabayCollectionController: UIViewController {
     
     private let pixView = PixabayCollectionView()
-    
-//    public var persistence = DataPersistence<PixImage>(filename: "images.plist")
-    
+        
     public var dataPersistence: DataPersistence<PixImage>!
+    
+    let forecastDetailVC = ForecastDetailController()
     
     var pixPics = [PixImage]() {
         didSet {
@@ -30,11 +30,6 @@ class PixabayCollectionController: UIViewController {
         view = pixView
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        loadPix()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,13 +37,11 @@ class PixabayCollectionController: UIViewController {
         pixView.collectionView.delegate = self
         
         pixView.collectionView.register(UINib(nibName: "FavPixCell", bundle: nil), forCellWithReuseIdentifier: "pixCell")
-        //        loadPix()
-        
+
     }
     
     private func loadPix() {
         do {
-//            pixPics = try persistence.loadItems()
             pixPics = try dataPersistence.loadItems()
         } catch {
             print("cannot load images")
@@ -68,7 +61,7 @@ extension PixabayCollectionController: UICollectionViewDataSource {
             fatalError("could not downcast to FavPixCell")
         }
         let pixImage = pixPics[indexPath.row]
-        //        forecastDetailVC.pixDelegate = self
+        
         cell.delegate = self
         cell.configureCell(for: pixImage)
         cell.backgroundColor = .white
@@ -100,20 +93,22 @@ extension PixabayCollectionController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension PixabayCollectionController: AddPhotoToFavorites {
-    func updateCollectionView(pixImage: PixImage) {
-        pixPics.insert(pixImage, at: 0)
-        do {
-//            try persistence.createItem(pixImage)
-            try dataPersistence.createItem(pixImage)
-            
-        } catch {
-            print("could not create")
-        }
-    }
-    
-    
-}
+//extension PixabayCollectionController: AddPhotoToFavorites {
+//
+//
+//    func updateCollectionView(pixImage: PixImage) {
+//        pixPics.insert(pixImage, at: 0)
+//        do {
+////            try persistence.createItem(pixImage)
+//            try dataPersistence.createItem(pixImage)
+//
+//        } catch {
+//            print("could not create")
+//        }
+//    }
+//
+//
+//}
 
 extension PixabayCollectionController: ImageCellDelegate {
     func didLongPress(_ imageCell: FavPixCell) {
@@ -149,4 +144,17 @@ extension PixabayCollectionController: ImageCellDelegate {
         }
         
     }
+}
+
+extension PixabayCollectionController: DataPersistenceDelegate {
+    func didSaveItem<T>(_ persistenceHelper: DataPersistence<T>, item: T) where T : Decodable, T : Encodable, T : Equatable {
+        print("photo saved")
+        loadPix()
+    }
+    
+    func didDeleteItem<T>(_ persistenceHelper: DataPersistence<T>, item: T) where T : Decodable, T : Encodable, T : Equatable {
+        
+    }
+    
+    
 }

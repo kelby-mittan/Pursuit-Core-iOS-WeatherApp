@@ -14,7 +14,7 @@ class PixabayCollectionController: UIViewController {
     
     private let pixView = PixabayCollectionView()
     
-    public var persistence = DataPersistence<PixImage>(filename: "images.plist")
+//    public var persistence = DataPersistence<PixImage>(filename: "images.plist")
     
     public var dataPersistence: DataPersistence<PixImage>!
     
@@ -48,8 +48,8 @@ class PixabayCollectionController: UIViewController {
     
     private func loadPix() {
         do {
-            pixPics = try persistence.loadItems()
-//            pixPics = try dataPersistence.loadItems()
+//            pixPics = try persistence.loadItems()
+            pixPics = try dataPersistence.loadItems()
         } catch {
             print("cannot load images")
         }
@@ -104,8 +104,8 @@ extension PixabayCollectionController: AddPhotoToFavorites {
     func updateCollectionView(pixImage: PixImage) {
         pixPics.insert(pixImage, at: 0)
         do {
-            try persistence.createItem(pixImage)
-//            try dataPersistence.createItem(pixImage)
+//            try persistence.createItem(pixImage)
+            try dataPersistence.createItem(pixImage)
             
         } catch {
             print("could not create")
@@ -138,8 +138,7 @@ extension PixabayCollectionController: ImageCellDelegate {
     
     private func deleteImageObject(indexPath: IndexPath) {
         do {
-            try persistence.deleteItem(at: indexPath.row)
-//            try dataPersistence.deleteItem(at: indexPath.row)
+            try dataPersistence.deleteItem(at: indexPath.row)
             
             pixPics.remove(at: indexPath.row)
             

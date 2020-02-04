@@ -78,11 +78,16 @@ class ForecastDetailView: UIView {
         label.textColor = UIColor.white
         return label
     }()
-//    public lazy var tabBar: ForecastPhotoTabController = {
-//        let tab = ForecastPhotoTabController()
-//        
-//        return tab
-//    }()
+
+    public var savedLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Saved to Favorites"
+        label.textAlignment = .center
+        label.font = .boldSystemFont(ofSize: 40)
+        label.numberOfLines = 0
+        label.textColor = UIColor.lightGray
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
@@ -102,6 +107,7 @@ class ForecastDetailView: UIView {
         setupSunsetLabelConstraints()
         setupHighTempLabelConstraints()
         setupLowTempLabelConstraints()
+        setupSavedLabelConstraints()
     }
     
     private func setupCityLabelConstraints() {
@@ -181,6 +187,18 @@ class ForecastDetailView: UIView {
             lowTempLabel.topAnchor.constraint(equalTo: highTempLabel.bottomAnchor, constant: 6),
             lowTempLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             lowTempLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+        ])
+    }
+    
+    private func setupSavedLabelConstraints() {
+        addSubview(savedLabel)
+        savedLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            savedLabel.centerXAnchor.constraint(equalTo: cityImage.centerXAnchor),
+            savedLabel.centerYAnchor.constraint(equalTo: cityImage.centerYAnchor),
+            savedLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            savedLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 20)
         ])
     }
 }

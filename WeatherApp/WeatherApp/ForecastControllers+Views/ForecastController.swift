@@ -17,10 +17,7 @@ struct RecentSearchKey {
 class ForecastController: UIViewController {
     
     private let forecastView = ForecastView()
-    
     public var dataPersistence: DataPersistence<PixImage>!
-    
-//    public var persistence = DataPersistence<PixImage>(filename: "images.plist")
     
     override func loadView() {
         view = forecastView
@@ -44,7 +41,6 @@ class ForecastController: UIViewController {
                     self.forecasts = forecasts
                 }
             }
-//            dump(forecasts)
         }
     }
     
@@ -121,7 +117,6 @@ extension ForecastController: UICollectionViewDataSource {
         }
         let forecast = forecasts[indexPath.row]
         
-        
         cell.configureCell(for: forecast)
         cell.backgroundColor = .white        
         
@@ -144,7 +139,8 @@ extension ForecastController: UICollectionViewDelegateFlowLayout {
         let forecast = forecasts[indexPath.row]
         forecastDetailVC.forecast = forecast
         forecastDetailVC.city = cityFromZip
-        dump(pixPics)
+        forecastDetailVC.dataPersistence = dataPersistence
+        
         let ranIndex = pixPics.count - 1
         
         if !pixPics.isEmpty {

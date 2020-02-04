@@ -11,7 +11,9 @@ import DataPersistence
 
 class ForecastPhotoTabController: UITabBarController {
     
-    public var persistence = DataPersistence<PixImage>(filename: "images.plist")
+    public let persistence = DataPersistence<PixImage>(filename: "images.plist")
+    
+//    private let foreCastCollectionVC = ForecastController()
     
     public lazy var forecastVC: UINavigationController = {
         let viewController = UINavigationController(rootViewController: ForecastController())
@@ -29,14 +31,15 @@ class ForecastPhotoTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        let forecastVC = UINavigationController(rootViewController: ForecastController())
-        //        forecastVC.tabBarItem = UITabBarItem(title: "Weather", image: UIImage(systemName: "cloud.sun.rain.fill"), tag: 0)
-        //
-        //        let pixController = PixabayCollectionController()
-        //        pixController.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "star.fill"), tag: 1)
+//        foreCastCollectionVC.dataPersistence = persistence
         
-        //        self.tabBarController?.tabBar.backgroundColor = .black
+//        forecastVC.topViewController.
         
+        guard let forecastCollectionVC = forecastVC.viewControllers.first as? ForecastController else {
+            return
+        }
+        
+        forecastCollectionVC.dataPersistence = persistence
         
         pixabayCollectionVC.dataPersistence = persistence
         viewControllers = [forecastVC, pixabayCollectionVC]

@@ -70,15 +70,6 @@ extension UIViewController {
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
     }
-    
-//    func showBigAlert(title: String, message: String, completion: ((UIAlertAction) -> Void)? = nil) {
-//        
-//        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//        
-//        let okAction = UIAlertAction(title: "Ok", style: .default, handler: completion)
-//        alertController.addAction(okAction)
-//        present(alertController, animated: true, completion: nil)
-//    }
 }
 
 extension UIImage {

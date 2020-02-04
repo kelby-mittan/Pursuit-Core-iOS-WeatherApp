@@ -11,10 +11,6 @@ import NetworkHelper
 import DataPersistence
 import AVFoundation
 
-protocol AddPhotoToFavorites: AnyObject {
-    func updateCollectionView(pixImage: PixImage)
-}
-
 class ForecastDetailController: UIViewController {
     
     private let detailView = ForecastDetailView()
@@ -22,9 +18,7 @@ class ForecastDetailController: UIViewController {
     public var forecast: DataObject?
     public var pixImage: PixImage?
     public var city: String?
-    
-    weak var pixDelegate: AddPhotoToFavorites!
-    
+        
     override func loadView() {
         view = detailView
     }
@@ -88,12 +82,8 @@ class ForecastDetailController: UIViewController {
         print("clicked")
         sender.isEnabled = false
         
-        guard let favPix = pixImage else { return }
-        pixDelegate?.updateCollectionView(pixImage: favPix)
-        
         do {
             guard let favPix = pixImage else { return }
-            pixDelegate?.updateCollectionView(pixImage: favPix)
             try dataPersistence.createItem(favPix)
             
         } catch {

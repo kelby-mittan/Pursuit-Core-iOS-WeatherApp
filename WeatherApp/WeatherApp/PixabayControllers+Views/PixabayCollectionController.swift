@@ -93,23 +93,6 @@ extension PixabayCollectionController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-//extension PixabayCollectionController: AddPhotoToFavorites {
-//
-//
-//    func updateCollectionView(pixImage: PixImage) {
-//        pixPics.insert(pixImage, at: 0)
-//        do {
-////            try persistence.createItem(pixImage)
-//            try dataPersistence.createItem(pixImage)
-//
-//        } catch {
-//            print("could not create")
-//        }
-//    }
-//
-//
-//}
-
 extension PixabayCollectionController: ImageCellDelegate {
     func didLongPress(_ imageCell: FavPixCell) {
         print("delegate working")

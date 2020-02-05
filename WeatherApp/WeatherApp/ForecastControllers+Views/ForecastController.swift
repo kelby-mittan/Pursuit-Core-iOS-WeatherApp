@@ -15,7 +15,7 @@ struct RecentSearchKey {
 }
 
 class ForecastController: UIViewController {
-    
+
     private let forecastView = ForecastView()
     public var dataPersistence: DataPersistence<PixImage>!
     
@@ -62,6 +62,18 @@ class ForecastController: UIViewController {
         
         forecastView.rainGifImage.loadGif(name: "rainGIF")
         setupNavBar()
+        
+        getMostRecent()
+    }
+    
+    private func getMostRecent() {
+        forecastView.rainGifImage.isHidden = true
+        guard let mostRecent = UserDefaults.standard.object(forKey: RecentSearchKey.zipOrCity) as? String else { return }
+        getZip(search: mostRecent)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     private func setupNavBar() {
@@ -69,6 +81,8 @@ class ForecastController: UIViewController {
         navigationController?.navigationBar.barTintColor = .black
         tabBarController?.tabBar.barTintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white, .font : UIFont.init(name: "AvenirNext-DemiBold", size: 22.0)!]
+        
+//        navigationController?.preferredStatusBarStyle
         
     }
     

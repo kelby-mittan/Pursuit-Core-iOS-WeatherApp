@@ -42,7 +42,7 @@ class PixabayCollectionController: UIViewController {
     
     private func loadPix() {
         do {
-            pixPics = try dataPersistence.loadItems()
+            pixPics = try dataPersistence.loadItems().reversed()
         } catch {
             print("cannot load images")
         }
@@ -131,7 +131,7 @@ extension PixabayCollectionController: ImageCellDelegate {
 
 extension PixabayCollectionController: DataPersistenceDelegate {
     func didSaveItem<T>(_ persistenceHelper: DataPersistence<T>, item: T) where T : Decodable, T : Encodable, T : Equatable {
-        print("photo saved")
+        
         loadPix()
     }
     
